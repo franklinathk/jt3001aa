@@ -12,6 +12,7 @@ def crc8(data, polynomial, initial_value):
     return crc & 0xFF
 
 # Convert the input string to a list of integers
+input_string = "ee 3B 0 08"
 input_data = [int(byte, 16) for byte in input_string.split()]
 
 # CRC-8 parameters
