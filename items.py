@@ -44,20 +44,26 @@ ITEMS_SETTINGS  = [
               ("SW06 CHOP_FREQ_TEST",'','', ''), 
               ("SW07 on_line Calibr",'','', ''), 
               ("SW08 LOCK",'','', ''), 
-              ("SW09 IS_PAOWANG",'','', ''), 
-              #("OP01 DC Speed", '31.25k','', {"500K","250k","62.5k","31.25k"}),  # OP is option
               ("OP02 DC low count", '0','', {"-2","-1","0","+1","+2"}), 
-              #("OP03 DB Speed", '1M','', {"4M", "2M", "1M"}), 
               ("OP04 DB low count", '0','', {"-1","0","+1","+2", "+3"}), 
               ("OP05 DB frame rate", '90Hz','', {"30Hz","90Hz","120Hz","240Hz"}), 
               ("OP06 DC Reset bit", '3','', {"2","3","4","5"}), 
+              ("SW18 DC RESET",'','', ''), 
               ("OP07 DB Reset Bit", '4','', {"2","3","4","5"}), 
+              ("SW23 DB RESET",'','', ''), 
               ("SW20 DB Repeat",'','', ''), 
               ("SW15 PRINT_MESSAGE",'','', ''), 
               ("SW16 ExtClk Enable",'','', ''), 
               ("SW17 OSC div256 Enable",'','',''), 
               ("SW21 NEW LINE ON CMD",'','',''), 
               ("OP09 test_osc_source", 'dbo','',{"dbo", "db","dc","62.915M"}),
+              ("OP12 INA228_exist", 'Yes','',{"Yes", "No"}),
+              ("OP10 test_led_channel", '1','',{"1", "2","3","4","5", "6","7","8"}),
+              ("OP11 PAM or PWM", 'PWM','',{"PWM", "PAM"}),
+              ("0xt1 TI_ADC_CONFIG_H",'aa','WR', ''),
+              ("0xt2 TI_ADC_CONFIG_L",'82','WR', ''),
+              ("0xt3 HT2_or_DAC NUM",'1','WR', ''), 
+              ("SW24 GET_LED_CURRENT",'','', ''), 
 ]
 
 # Specify specific item names
@@ -153,17 +159,8 @@ ITEMS_VOL_CUR = [
               ("0xcc Measured Fine FREQ",'00Mhz','', ''), 
               ("SW13 FREQ COARSE TRIM",'','', ''), 
               ("SW14 FREQ FINETUNE TRIM",'','', ''), 
-              ("SW18 DC RESET",'','', ''), 
               ("SW19 AVDDL from DBO",'','', ''), 
               ("SW22 AUTO SEARCH FREQ",'','', ''), 
-              ("SW23 DB RESET",'','', ''), 
-              ("SW24 GET_LED_CURRENT",'','', ''), 
-              ("OP10 test_led_channel", '1','',{"1", "2","3","4","5", "6","7","8"}),
-              ("OP11 PAM or PWM", 'PWM','',{"PWM", "PAM"}),
-              ("0xt1 TI_ADC_CONFIG_H",'aa','WR', ''),
-              ("0xt2 TI_ADC_CONFIG_L",'82','WR', ''),
-              ("0xt3 HT2_or_DAC NUM",'1','WR', ''), 
-              ("OP12 INA228_exist", 'Yes','',{"Yes", "No"})
             ]
 # Specify specific item names
 ITEMS_DC = [ 
