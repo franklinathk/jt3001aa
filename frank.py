@@ -1,7 +1,6 @@
 """
 # 2024-01-12T11:04:56.715750
 import vitis
- 
 client = vitis.create_client()
 client.set_workspace(path="/workspaces/signe/test")
  
@@ -11,9 +10,8 @@ status = platform.build()
 vitis.dispose()
 """
 from tkinter import *
-import tkinter.ttk
 import subprocess
-import pyautogui 
+#import pyautogui 
 import matplotlib.pyplot as plt
 import os
 #vitis_cmd = r'C:\Xilinx\Vitis\2022.2\bin\vitis.bat'
@@ -27,7 +25,6 @@ from pprint import pprint
 import time
 from tkinter import Menu, DISABLED
 from tkinter.simpledialog import askfloat
-from tkinter import *
 from PIL import Image, ImageTk
 from tkinter.colorchooser import askcolor
 # UART Tx/Rx demo
@@ -126,6 +123,7 @@ label_2nd_var = None
 # At the beginning of your script or in the global scope
 switch_dict = {}
 focus_out_flag = False
+
 ############################################
 def on_eng_mode_change(*args):
     eng_mode_value = ENG_MODE_VAR.get()
@@ -229,6 +227,35 @@ def change_bg_color(win_name, switch_app_instance, row_index, column_index, clas
     # Create a 'CMD' menu
     dc_cmd_menu = Menu(menu_bar, tearoff=0)
     menu_bar.add_cascade(label="CMD", menu=dc_cmd_menu)
+
+    #############################################################
+    #  Create scrollable bar 
+    #############################################################
+    # Create a canvas and a scrollbar
+    '''
+    canvas = Canvas(win_name)
+    scrollbar = Scrollbar(win_name, orient="vertical", command=canvas.yview)
+    scrollable_frame = Frame(canvas)
+
+    scrollable_frame.bind(
+        "<Configure>",
+        lambda e: canvas.configure(
+            scrollregion=canvas.bbox("all")
+        )
+    )
+
+    canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    # Place canvas and scrollbar in the parent window
+    canvas.grid(row=0, column=0, sticky="nsew")
+    scrollbar.grid(row=0, column=1, sticky="ns")
+
+    # Configure the parent window to expand with resizing
+    win_name.grid_rowconfigure(0, weight=1)
+    win_name.grid_columnconfigure(0, weight=1)
+    '''
+    ######### END OF SCROLLABLE BAR CREATION #######################################
 
     # Add a command to toggle the visibility of the scroll bar
     #print(f"win_name.title is {win_name.title()}, win_name is {win_name}")
@@ -434,21 +461,25 @@ def on_menu_click(option):
         #disable_cmd_option("Get Current")
     elif option == "Launch Vitis":
         try : 
-            subprocess.run(vitis_cmd, check=True, shell=True)
+            # subprocess.run(vitis_cmd, check=True, shell=True)
+          pass
         except subprocess.CalledProcessError as e:
-            print(f"Error: {e}")
+            # print(f"Error: {e}")
+          pass
 
     elif option == "Run Application":
         try : 
           # Execute vitis.bat with the provided Tcl script
-            subprocess.run([vitis_cmd, '-mode', 'batch', '-source', f'.\frank_subdir\launch_workspace.tcl', '-workspace', workspace_dir], shell=True)  
+          #  subprocess.run([vitis_cmd, '-mode', 'batch', '-source', r'.\frank_subdir\launch_workspace.tcl', '-workspace', workspace_dir], shell=True)  
+          pass
         except subprocess.CalledProcessError as e:
-            print(f"Error: {e}")
+          #  print(f"Error: {e}")
+          pass
 
     elif option == "Trim Vol_Cur":
         global win_trim
         if win_trim is None or not win_trim.winfo_exists():
-            win_trim = create_subwindow("win_trim",330,750)
+            win_trim = create_subwindow("win_trim",330,680)
             open_win(win_trim, root.winfo_width() + 250)  
         # Bind the protocol to handle windows close event
         win_trim.protocol("WM_DELETE_WINDOW", on_trim_close)
@@ -468,7 +499,7 @@ def on_menu_click(option):
     elif option == "Settings":
         global win_settings
         if win_settings is None or not win_settings.winfo_exists():
-            win_settings = create_subwindow("win_settings",250,700)
+            win_settings = create_subwindow("win_settings",310,920)
             open_win(win_settings, root.winfo_width() + 250)  
         # Bind the protocol to handle windows close event
         win_settings.protocol("WM_DELETE_WINDOW", on_settings_close)
@@ -476,7 +507,7 @@ def on_menu_click(option):
     elif option == "dc write one":
         global win_dc_wr_one
         if win_dc_wr_one is None or not win_dc_wr_one.winfo_exists():
-            win_dc_wr_one = create_subwindow("win_dc_wr_one",310,1000)
+            win_dc_wr_one = create_subwindow("win_dc_wr_one",310,920)
             open_win(win_dc_wr_one, root.winfo_width() + 250)  
         # Bind the protocol to handle windows close event
         win_dc_wr_one.protocol("WM_DELETE_WINDOW", on_dc_wr_one_close)
@@ -503,7 +534,7 @@ def on_menu_click(option):
     elif option == "db write":
         global win_db_wr
         if win_db_wr is None or not win_db_wr.winfo_exists():
-            win_db_wr = create_subwindow("win_db_wr",300,900)
+            win_db_wr = create_subwindow("win_db_wr",300,720)
             open_win(win_db_wr, root.winfo_width() + 250)  
         win_db_wr.protocol("WM_DELETE_WINDOW", on_db_wr_close)
         disable_cmd_option("db write")
@@ -633,7 +664,7 @@ screenHeight = root.winfo_screenheight()
 w = 450
 h = 700
 x = 10
-y = 30
+y = 0
 #x = (screenWidth - w) / 2
 #y = (screenHeight - h) / 2
 root.geometry("%dx%d+%d+%d" % (w, h, x, y))
@@ -975,33 +1006,9 @@ on_menu_click("dc write one")
 root.update() # Manually trigger an update
 on_menu_click("Settings") # CMD_options
 root.update() # Manually trigger an update
-on_menu_click("Trim Vol_Cur")
-root.update() # Manually trigger an update
-on_menu_click("OTP")
-root.update() # Manually trigger an update
-
-
-
-
-# Path to the Vitis executable
-vitis_executable = r"C:\Xilinx\Vitis\2022.2\bin\vitis.bat"
-# C:\Users\frank.lin\7020\07_ps_axi_gpio\Vivado\ps_axi_gpio\ps_axi_gpio.xpr"
-# Path to the workspace and TCL script
-workspace_path = r"C:\Users\frank.lin\7020\07_ps_axi_gpio\Vivado\ps_axi_gpio"
-# Path to the TCL script
-tcl_script = r"C:\Users\frank.lin\prgtst\SerialMonitor_main\frank_subdir\run_project.tcl"
-
-# Command to execute the TCL script in Vitis
-tcl_command = f'"{vitis_executable}"'
-# tcl_command = f'"{vitis_executable}" -workspace "{workspace_path}"'
-
-try:
-    # Execute the command and capture output and errors
-  #  result = subprocess.run(tcl_command, shell=True, capture_output=True, text=True)
-  #  print(result.stdout)
-  #  print(result.stderr)
-    print("Vitis launched and TCL script executed.")
-except Exception as e:
-    print(f"Error occurred: {e}")
+# on_menu_click("Trim Vol_Cur")
+# root.update() # Manually trigger an update
+# on_menu_click("OTP")
+# root.update() # Manually trigger an update
 
 root.mainloop()
